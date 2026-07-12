@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CampusConnect — Design Preview</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink-900:#0b0b13; --ink-800:#12121c; --ink-700:#1a1a28;
+    --brand:#8b5cf6; --brand-600:#7c3aed; --sky:#0ea5e9; --pink:#ec4899;
+    --emerald:#10b981; --amber:#f59e0b; --rose:#f43f5e;
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #e2e8f0;
+    background: var(--ink-900);
+    background-image:
+      radial-gradient(1000px 600px at 10% -10%, rgba(124,58,237,.20), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(14,165,233,.16), transparent 60%),
+      radial-gradient(700px 400px at 50% 120%, rgba(236,72,153,.13), transparent 60%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .glass {
+    background: rgba(255,255,255,.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+  }
+  .glass-strong { background: rgba(255,255,255,.06); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-mark {
+    width: 36px; height: 36px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--brand), var(--sky));
+    box-shadow: 0 0 30px -8px rgba(124,58,237,.7);
+    display:grid; place-items:center;
+  }
+  .logo-text { font-weight: 700; font-size: 15px; }
+  .grad-text {
+    background: linear-gradient(90deg, #a78bfa, #38bdf8, #f472b6, #a78bfa);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shine 4s linear infinite;
+  }
+  @keyframes shine { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+  .logo-tag { font-size: 10px; letter-spacing: 2px; color:#64748b; text-transform: uppercase; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding: 10px 18px; border-radius:12px; font-weight:500; font-size:14px; text-decoration:none; border:0; cursor:pointer; transition: all .2s; }
+  .btn-primary { background: linear-gradient(90deg, var(--brand-600), var(--sky)); color:white; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px -10px rgba(124,58,237,.6); }
+  .btn-ghost { background: rgba(255,255,255,.04); color:#e2e8f0; border:1px solid rgba(255,255,255,.10); }
+  .btn-ghost:hover { background: rgba(255,255,255,.08); }
+  .chip {
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 5px 12px; border-radius: 999px; font-size: 12px;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); color:#cbd5e1;
+  }
+  .hero { text-align:center; padding: 60px 24px 100px; }
+  .hero h1 { font-size: clamp(36px, 5.5vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin: 24px 0; }
+  .hero p { color:#94a3b8; max-width: 620px; margin: 0 auto; font-size: 18px; }
+  .cta-row { display:flex; gap:16px; justify-content:center; margin-top: 36px; }
+
+  .preview {
+    max-width: 1000px; margin: 60px auto 0; position: relative;
+  }
+  .preview-glow {
+    position:absolute; inset:0; filter: blur(48px);
+    background: linear-gradient(90deg, rgba(139,92,246,.25), rgba(14,165,233,.25), rgba(236,72,153,.20));
+    border-radius: 24px;
+  }
+  .preview-card { position:relative; padding: 12px; border-radius: 24px; }
+  .preview-inner { background: rgba(18,18,28,.85); border-radius: 18px; border:1px solid rgba(255,255,255,.06); padding: 24px; }
+  .kpi-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kpi { padding: 16px; border-radius: 14px; text-align:left; }
+  .kpi-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color:#64748b; }
+  .kpi-value { font-size: 28px; font-weight: 700; margin-top: 4px; }
+  .kpi-bar { margin-top: 12px; height: 6px; border-radius: 999px; background: rgba(255,255,255,.05); overflow:hidden; }
+  .kpi-bar > div { height: 100%; background: linear-gradient(90deg, var(--brand), var(--sky)); border-radius: 999px; }
+
+  .ticket { margin-top: 16px; padding: 14px; border-radius: 14px; display:flex; align-items:center; gap:12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 999px; display:grid; place-items:center; font-weight:700; font-size:13px; color:white; }
+  .ticket-body { flex:1; min-width: 0; }
+  .ticket-title { font-weight:500; font-size:14px; }
+  .ticket-meta { font-size: 12px; color:#64748b; margin-top: 2px; }
+  .badge { display:inline-flex; align-items:center; gap:4px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight:500; border: 1px solid; }
+  .badge-amber { color:#fcd34d; background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.30); }
+  .badge-sky   { color:#7dd3fc; background: rgba(14,165,233,.15); border-color: rgba(14,165,233,.30); }
+  .badge-emerald{color:#6ee7b7; background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.30); }
+  .badge-rose  { color:#fda4af; background: rgba(244,63,94,.15); border-color: rgba(244,63,94,.30); }
+
+  section.features { padding: 40px 24px 100px; max-width: 1200px; margin: 0 auto; }
+  section.features h2 { font-size: 36px; text-align:center; font-weight: 700; }
+  section.features .sub { text-align:center; color:#94a3b8; margin: 8px 0 40px; }
+  .feat-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .feat { padding: 24px; transition: all .2s; }
+  .feat:hover { border-color: rgba(139,92,246,.30); transform: translateY(-2px); }
+  .feat-icon { width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(139,92,246,.30), rgba(14,165,233,.20));
+    border:1px solid rgba(255,255,255,.10); display:grid; place-items:center; color:#c4b5fd; }
+  .feat h3 { margin-top: 16px; font-size: 17px; font-weight: 600; }
+  .feat p { margin-top: 6px; font-size: 14px; color:#94a3b8; }
+
+  /* Dashboard mock */
+  .dash { padding: 60px 24px; max-width: 1200px; margin: 0 auto; }
+  .dash-header { display:flex; align-items:end; justify-content:space-between; margin-bottom: 24px; }
+  .dash h2 { font-size: 28px; font-weight: 700; }
+  .dash .desc { color:#94a3b8; font-size:14px; margin-top: 4px; }
+  .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .stat { padding: 20px; position: relative; overflow: hidden; }
+  .stat::after {
+    content:""; position:absolute; top:-30px; right:-30px; width:120px; height:120px;
+    border-radius:50%; filter: blur(28px); opacity:.6;
+  }
+  .stat.brand::after   { background: radial-gradient(closest-side, rgba(139,92,246,.6), transparent); }
+  .stat.amber::after   { background: radial-gradient(closest-side, rgba(245,158,11,.6), transparent); }
+  .stat.emerald::after { background: radial-gradient(closest-side, rgba(16,185,129,.6), transparent); }
+  .stat.rose::after    { background: radial-gradient(closest-side, rgba(244,63,94,.6), transparent); }
+  .stat-icon { width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);
+    display:grid; place-items:center; margin-bottom: 16px; position: relative; z-index: 1;}
+  .stat-value { font-size: 30px; font-weight: 700; position: relative; z-index:1;}
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color:#64748b; margin-top: 4px; position:relative; z-index:1;}
+
+  .charts { display:grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .charts { grid-template-columns: 1fr; } }
+  .chart-card { padding: 24px; }
+  .chart-title { font-weight: 600; margin-bottom: 16px; display:flex; justify-content:space-between; align-items:center;}
+  .trend-svg { width: 100%; height: 220px; }
+
+  .recent { padding: 24px; }
+  .recent-row { display:flex; align-items:center; gap:16px; padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,.05); transition: all .15s;}
+  .recent-row:hover { background: rgba(255,255,255,.02); border-radius: 8px; }
+  .recent-row:last-child { border-bottom: 0; }
+
+  footer { text-align:center; color:#64748b; font-size:13px; padding: 32px; border-top: 1px solid rgba(255,255,255,.05); }
+
+  .banner {
+    max-width: 1200px; margin: 0 auto 20px; padding: 14px 20px; border-radius: 14px;
+    background: linear-gradient(90deg, rgba(139,92,246,.12), rgba(14,165,233,.08));
+    border: 1px solid rgba(139,92,246,.20); font-size: 13px; color:#cbd5e1; display:flex; gap:10px; align-items:center;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+        <path d="M6 15c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="12" cy="7" r="2.6" fill="white"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">Campus<span class="grad-text">Connect</span></div>
+      <div class="logo-tag">Grievance Portal</div>
+    </div>
+  </div>
+  <div style="display:flex; gap:12px;">
+    <a class="btn btn-ghost" href="#">Sign in</a>
+    <a class="btn btn-primary" href="#">Get Started →</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="banner">
+    ✨ This is a static preview of the design. Run <code style="background:rgba(0,0,0,.3); padding:2px 6px; border-radius:4px;">npm run dev</code> in <b>backend/</b> and <b>frontend/</b> to launch the real MERN app.
+  </div>
+</div>
+
+<section class="hero">
+  <div class="chip">✨ Modern MERN · Full-stack Grievance Portal</div>
+  <h1>A student grievance portal<br/>that actually <span class="grad-text">gets things done.</span></h1>
+  <p>CampusConnect gives students a fast, transparent way to raise complaints — and gives administration a beautiful dashboard to resolve them.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#" style="padding:14px 24px; font-size:15px;">Create free account →</a>
+    <a class="btn btn-ghost" href="#" style="padding:14px 24px; font-size:15px;">Sign in</a>
+  </div>
+
+  <div class="preview">
+    <div class="preview-glow"></div>
+    <div class="preview-card glass glass-strong">
+      <div class="preview-inner">
+        <div class="kpi-grid">
+          <div class="kpi glass">
+            <div class="kpi-label">Open</div><div class="kpi-value">12</div>
+            <div class="kpi-bar"><div style="width:30%"></div></div>
+          </div>
+          <div class="kpi glass">
+            <div class="kpi-label">In Progress</div><div class="kpi-value">5</div>
+            <div class="kpi-bar"><div style="width:60%"></div></div>
+          </div>
+          <div class="kpi glass">
+            <div class="kpi-label">Resolved</div><div class="kpi-value">34</div>
+            <div class="kpi-bar"><div style="width:90%"></div></div>
+          </div>
+        </div>
+        <div class="ticket glass">
+          <div class="avatar" style="background:#0ea5e9;">AK</div>
+          <div class="ticket-body">
+            <div class="ticket-title">Hostel WiFi is very slow after 8 PM</div>
+            <div class="ticket-meta">CC-9AB4Z2K7 · Hostel · High priority</div>
+          </div>
+          <span class="badge badge-amber">● In Progress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Everything you need, nothing you don't.</h2>
+  <p class="sub">Production-grade features baked into a clean, focused UI.</p>
+  <div class="feat-grid">
+    <div class="feat glass">
+      <div class="feat-icon">🛡️</div>
+      <h3>Secure JWT Auth</h3>
+      <p>Access + refresh tokens with rotation, httpOnly cookies, and role-based access.</p>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">⚡</div>
+      <h3>Real-time Tracking</h3>
+      <p>Track your complaint from Open → In Progress → Resolved with a full audit trail.</p>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">💬</div>
+      <h3>Threaded Discussions</h3>
+      <p>Have a two-way conversation with faculty and admins on every ticket.</p>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">📊</div>
+      <h3>Admin Analytics</h3>
+      <p>Live dashboards with category, priority, status and 14-day trend charts.</p>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">👥</div>
+      <h3>Role-Based Access</h3>
+      <p>Students, faculty and admins each see a tailored view of the system.</p>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">🎭</div>
+      <h3>Anonymous Mode</h3>
+      <p>Report sensitive issues anonymously — identity is hidden from all non-admins.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dash">
+  <div class="dash-header">
+    <div>
+      <h2>Dashboard preview</h2>
+      <div class="desc">A peek at the student & admin dashboard layout.</div>
+    </div>
+    <a class="btn btn-primary" href="#">+ New Complaint</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat glass brand">
+      <div class="stat-icon" style="color:#c4b5fd;">📥</div>
+      <div class="stat-value">51</div>
+      <div class="stat-label">Total</div>
+    </div>
+    <div class="stat glass amber">
+      <div class="stat-icon" style="color:#fcd34d;">⏱️</div>
+      <div class="stat-value">5</div>
+      <div class="stat-label">In Progress</div>
+    </div>
+    <div class="stat glass emerald">
+      <div class="stat-icon" style="color:#6ee7b7;">✅</div>
+      <div class="stat-value">34</div>
+      <div class="stat-label">Resolved</div>
+    </div>
+    <div class="stat glass rose">
+      <div class="stat-icon" style="color:#fda4af;">🚨</div>
+      <div class="stat-value">12</div>
+      <div class="stat-label">Open</div>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card glass">
+      <div class="chart-title"><span>Complaints — last 14 days</span><span class="chip">Live</span></div>
+      <svg class="trend-svg" viewBox="0 0 600 220" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".7"/>
+            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+          <line x1="0" y1="45"  x2="600" y2="45"/>
+          <line x1="0" y1="105" x2="600" y2="105"/>
+          <line x1="0" y1="165" x2="600" y2="165"/>
+        </g>
+        <path d="M0,160 L45,140 L90,150 L135,110 L180,120 L225,80 L270,95 L315,60 L360,75 L405,50 L450,70 L495,40 L540,55 L600,30 L600,220 L0,220 Z" fill="url(#areaGrad)"/>
+        <path d="M0,160 L45,140 L90,150 L135,110 L180,120 L225,80 L270,95 L315,60 L360,75 L405,50 L450,70 L495,40 L540,55 L600,30" stroke="#a78bfa" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="chart-card glass">
+      <div class="chart-title">By Category</div>
+      <div style="display:flex; justify-content:center; padding:20px 0;">
+        <svg width="180" height="180" viewBox="0 0 42 42">
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="rgba(255,255,255,.05)" stroke-width="6"/>
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#8b5cf6" stroke-width="6" stroke-dasharray="25 75" stroke-dashoffset="0" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#0ea5e9" stroke-width="6" stroke-dasharray="20 80" stroke-dashoffset="-25" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#f59e0b" stroke-width="6" stroke-dasharray="18 82" stroke-dashoffset="-45" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#10b981" stroke-width="6" stroke-dasharray="15 85" stroke-dashoffset="-63" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#ec4899" stroke-width="6" stroke-dasharray="22 78" stroke-dashoffset="-78" transform="rotate(-90 21 21)"/>
+        </svg>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;display:inline-block"></span>Hostel · 12</span>
+        <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:#0ea5e9;display:inline-block"></span>Academic · 10</span>
+        <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;display:inline-block"></span>Infra · 9</span>
+        <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block"></span>Library · 7</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="recent glass">
+    <div class="chart-title"><span>Recent activity</span><a href="#" style="color:#a78bfa; font-size:13px; text-decoration:none;">View all →</a></div>
+    <div class="recent-row">
+      <div class="avatar" style="background:#0ea5e9;">AK</div>
+      <div class="ticket-body">
+        <div class="ticket-title">Hostel WiFi is very slow after 8 PM</div>
+        <div class="ticket-meta">CC-9AB4Z2K7 · Hostel · Jul 10</div>
+      </div>
+      <span class="badge badge-rose">High</span>
+      <span class="badge badge-amber">● In Progress</span>
+    </div>
+    <div class="recent-row">
+      <div class="avatar" style="background:#10b981;">MS</div>
+      <div class="ticket-body">
+        <div class="ticket-title">Broken chairs in CSE-204</div>
+        <div class="ticket-meta">CC-7XY9K2QM · Infrastructure · Jul 09</div>
+      </div>
+      <span class="badge badge-sky">Medium</span>
+      <span class="badge badge-emerald">● Resolved</span>
+    </div>
+    <div class="recent-row">
+      <div class="avatar" style="background:#ec4899;">RP</div>
+      <div class="ticket-body">
+        <div class="ticket-title">Library AC not working on 2nd floor</div>
+        <div class="ticket-meta">CC-3MN8L6VP · Library · Jul 08</div>
+      </div>
+      <span class="badge badge-sky">Low</span>
+      <span class="badge badge-sky">● Open</span>
+    </div>
+    <div class="recent-row">
+      <div class="avatar" style="background:#f59e0b;">SJ</div>
+      <div class="ticket-body">
+        <div class="ticket-title">Bus route change to Kalyanpur needed</div>
+        <div class="ticket-meta">CC-KLM4X7RT · Transport · Jul 07</div>
+      </div>
+      <span class="badge badge-sky">Medium</span>
+      <span class="badge badge-amber">● In Progress</span>
+    </div>
+  </div>
+</section>
+
+<footer>Built with the MERN stack · © 2026 CampusConnect · Design preview</footer>
+
+</body>
+</html>
