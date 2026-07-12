@@ -219,10 +219,7 @@ cd CampusConnect-Student-Grievance-Portal
 
 ### 2️⃣ Backend setup
 
-```bash
-cd backend
-cp .env.example .env         # Windows: copy .env.example .env
-```
+     
 
 Edit `backend/.env` and fill in:
 
@@ -237,17 +234,15 @@ JWT_REFRESH_SECRET=<another long random string>
 Then install, seed & run:
 
 ```bash
-npm install
-npm run seed        # seeds demo users + sample complaints
-npm run dev         # starts backend on http://localhost:5000
+cd C:\Users\Ayushu\Downloads\CampusConnect\CampusConnect\backend
+npm start         # starts backend on http://localhost:5000
 ```
 
 ### 3️⃣ Frontend setup (new terminal)
 
 ```bash
-cd frontend
-npm install
-npm run dev         # starts frontend on http://localhost:5173
+cd C:\Users\Ayushu\Downloads\CampusConnect\CampusConnect\frontend
+npm run dev        # starts frontend on http://localhost:5173
 ```
 
 ### 4️⃣ Open the app
