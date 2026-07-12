@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="./frontend/public/favicon.svg" width="80" alt="CampusConnect Logo"/>
-[![MERN](https://img.shields.io/badge/Stack-MERN-2ea44f?style=for-the-badge)])]
-
+[![MERN](https://img.shields.io/badge/Stack-MERN-2ea44f?style=for-the-badge)]
 # 🎓 CampusConnect
 
 ### A Modern MERN-Stack Student Grievance Portal
