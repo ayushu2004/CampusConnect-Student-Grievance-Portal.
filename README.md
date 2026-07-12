@@ -61,7 +61,7 @@
 
 *Full ticket view with admin controls and a chat-style conversation thread.*
 
-![Complaint Detail](./docs/screenshots/complaint-detail.png)
+![Complaint Detail](complaint-detail.png)
 
 </div>
 
