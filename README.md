@@ -53,7 +53,7 @@
 
 *Live KPIs, 14-day trend chart, category donut, and a real-time activity feed.*
 
-![Admin Dashboard](./docs/screenshots/dashboard.png)
+![Admin Dashboard](dashboard.png)
 
 ---
 
