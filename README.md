@@ -6,7 +6,7 @@
 
 *Raise it. Track it. Resolve it. — all in one beautifully-designed platform.*
 
-[![MERN](landing.png)](https://www.mongodb.com/mern-stack)
+[![MERN]()](https://www.mongodb.com/mern-stack)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge\&logo=react\&logoColor=white)](https://react.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge\&logo=node.js\&logoColor=white)](https://nodejs.org)
 [![Express](https://img.shields.io/badge/Express-4-000000?style=for-the-badge\&logo=express\&logoColor=white)](https://expressjs.com)
@@ -37,7 +37,7 @@
 
 *Modern hero with animated gradient text and a live preview of the dashboard.*
 
-![Landing Page](./docs/screenshots/landing.png)
+![Landing Page](landing.png)
 
 ---
 
