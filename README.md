@@ -7,7 +7,6 @@
 
 *Raise it. Track it. Resolve it. — all in one beautifully-designed platform.*
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/94/MERN-logo.png" width="200" alt="MERN Stack Logo"/>
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge\&logo=react\&logoColor=white)](https://react.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge\&logo=node.js\&logoColor=white)](https://nodejs.org)
 [![Express](https://img.shields.io/badge/Express-4-000000?style=for-the-badge\&logo=express\&logoColor=white)](https://expressjs.com)
