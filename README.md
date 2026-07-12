@@ -414,7 +414,7 @@ Distributed under the **MIT License**. See [`LICENSE`](./LICENSE) for more infor
 
 ## 👤 Author
 
-**Ayush Kumar**
+**Ayushu Singh**
 🌐 GitHub: [@ayushu2004](https://github.com/ayushu2004)
 🔗 Project: [CampusConnect – Student Grievance Portal](https://github.com/ayushu2004/CampusConnect-Student-Grievance-Portal)
 
