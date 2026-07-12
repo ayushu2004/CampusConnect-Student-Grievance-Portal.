@@ -1,6 +1,5 @@
 <div align="center">
 
-[![MERN](https://img.shields.io/badge/Stack-MERN-2ea44f?style=for-the-badge)]
 # 🎓 CampusConnect
 
 ### A Modern MERN-Stack Student Grievance Portal
