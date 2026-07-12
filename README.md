@@ -45,7 +45,7 @@
 
 *Split-layout auth with one-click demo credentials for Student / Faculty / Admin.*
 
-![Login Page](login(1).png)
+![Login Page](login.png)
 
 ---
 
